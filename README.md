@@ -47,16 +47,16 @@ dụ như khi lập trình java chúng ta phải cài jdk, maven java,... Vấn 
 
 # Một số lệnh cơ bản
 
-Syntax: docker <component> <command>
+Syntax: docker (component) (command)
 
-- <component>: tên đối tượng cần tương tác và có 4 đối tượng phổ biến là:
+- (component): tên đối tượng cần tương tác và có 4 đối tượng phổ biến là:
   + image
   + container
   + network
   + volume
   + ...
   + 
-- <command>: mã lệnh gồm các mã lệnh phổ biến như:
+- (command): mã lệnh gồm các mã lệnh phổ biến như:
   + ls: list
   + run
   + exec
@@ -67,9 +67,9 @@ Syntax: docker <component> <command>
 
 - Với đối tượng image chúng ta có các lệnh sau
   
-+ docker image pull <image> - docker image pull <image>:<tag> => dùng để tải image từ registry về, thì mỗi image nó sẽ có nhiều tag khác nhau dùng để đánh version của các image đó nếu không để tag mặc định là lastest.
++ docker image pull (image) - docker image pull (image):(tag) => dùng để tải image từ registry về, thì mỗi image nó sẽ có nhiều tag khác nhau dùng để đánh version của các image đó nếu không để tag mặc định là lastest.
   
-+ docker image push <image>:<tag> => dùng để taỉ image đã build ở local lên registry
++ docker image push (image):(tag) => dùng để taỉ image đã build ở local lên registry
 
 + docker image ls || docker images => dùng để liệt kê image đang có trong máy local
   
@@ -81,15 +81,15 @@ Syntax: docker <component> <command>
   
 - Đối tượng container
 
-+ docker container run <image> => để chạy 1 container dùng lệnh run kèm theo tên của image
++ docker container run (image) => để chạy 1 container dùng lệnh run kèm theo tên của image
 
 + docker container ls || docker container ls -a => để list ra các container đang chạy, tuy nhiên muốn list ra kể cả container đã shut down thì chúng ta phải thêm cờ a => cách viết ngắn gọn hơn docker ps || docker ps -a
 
-+ docker container stop <container_id> => dùng để stop container đang chạy với tham số là id or tên của container đó
++ docker container stop (container_id) => dùng để stop container đang chạy với tham số là id or tên của container đó
 
 + docker container prune => tương tự như trên lệnh prune có tác dụng xóa toàn bộ container đã được shutdown không còn được dùng nữa
 
-+ docker container exec <container_id> <command> => dùng để chạy 1 câu lệnh bên trong container bất kỳ.
++ docker container exec (container_id) (command) => dùng để chạy 1 câu lệnh bên trong container bất kỳ.
 
 !! Short-hand:
 + docker run
