@@ -39,4 +39,61 @@ dụ như khi lập trình java chúng ta phải cài jdk, maven java,... Vấn 
 
 + Stateless: container không tạo ra thay đổi dữ liệu bên trong nó, điều này có được là do tính bất biến ở bên trên, có thể hiểu đơn giản bởi vì không chứa dữ liệu ở bên trong nên các container giờ đây cực kỳ tự do và linh hoạt, chúng ta có thể nhân bản các container lên 100, container giống hệt nhau để đáp ứng đủ traffic người dùng vào giờ cao điểm hoặc bạn có thể shutdow nó ở máy này và dựng nó lên ở máy khác mà vẫn chẳng ảnh hưởng gì đến hệ thống ban đầu.
   
-# Slide xem hình: https://drive.google.com/file/d/1LXxBCmt2EpbuAStiVsOeHfYzl0jy4BeF/view?usp=sharing
+# Các khái niệm cơ bản 
+
+- Docker Engine: Docker là tên của công ty còn phầm mềm mà công ty đó cung cấp để cài vào máy thì chúng ta ta gọi là docker engine. Docker engine bao gồm 2 module chính là Docker Daemon là module đầu tiên và cũng là module cốt lõi đóng vai trò là server chạy ngầm bên dưới hệ thống, bộ câu lệnh cli là module thứ 2 đóng vai trò là client và chúng ta sẽ sử dụng bộ câu lệnh này để giao tiếp với cục Docker Daemon thông qua giao thức https. Như đã trình bày hồi nãy, các container sử dụng chung kernel với hệ điều hành gốc được cài trên máy chủ vật lý nên chúng bị phụ thuộc vào hệ điều hành đó. Hệ điều hành window chỉ có thể chay được container giành cho window như là .net core, .net framework, do bị giới hạn như vậy nên là hầu như mỗi lần cài docker trên window, docker sẽ yêu cầu chúng ta kích hoạt hyperV hoặc virtualbox và cài lên nó một máy ảo linux và lúc này cục docker daemon sẽ được cài vào trong cái máy ảo linux đó còn cài bộ câu lệnh cli vẫn được cài trên máy window của chúng ta. (xem ảnh ở slide)
+  
+- Registry: Docker đóng gói ứng dụng thành cái image vậy thì phải có cách nào đó để chúng ta tải image này lên mạng và chia sẻ với các máy khác thì cái nơi mà chúng ta dùng để lưu trữ các image này chúng ta gọi là container registry. Thì nay trên thị trường có những nhà cung cấp dịch vụ lưu trữ image khác nhau như là Docker Hub do chính docker làm ra, Amazion Elatic Container Registry (ECR), ...
+
+# Một số lệnh cơ bản
+
+Syntax: docker <component> <command>
+
+- <component>: tên đối tượng cần tương tác và có 4 đối tượng phổ biến là:
+  + image
+  + container
+  + network
+  + volume
+  + ...
+  + 
+- <command>: mã lệnh gồm các mã lệnh phổ biến như:
+  + ls: list
+  + run
+  + exec
+  + stop
+  + pull
+  + prune
+  + ...
+
+- Với đối tượng image chúng ta có các lệnh sau
+  
++ docker image pull <image> - docker image pull <image>:<tag> => dùng để tải image từ registry về, thì mỗi image nó sẽ có nhiều tag khác nhau dùng để đánh version của các image đó nếu không để tag mặc định là lastest.
+  
++ docker image push <image>:<tag> => dùng để taỉ image đã build ở local lên registry
+
++ docker image ls || docker images => dùng để liệt kê image đang có trong máy local
+  
++ docker image prune => dùng để xóa toàn bộ image không còn được dùng nữa thì thỉnh thoảng nên chạy lệnh này để dọn dẹp image có trong máy của mình
+  
+!! Short-hand: 
++ docker pull
++ docker push
+  
+- Đối tượng container
+
++ docker container run <image> => để chạy 1 container dùng lệnh run kèm theo tên của image
+
++ docker container ls || docker container ls -a => để list ra các container đang chạy, tuy nhiên muốn list ra kể cả container đã shut down thì chúng ta phải thêm cờ a => cách viết ngắn gọn hơn docker ps || docker ps -a
+
++ docker container stop <container_id> => dùng để stop container đang chạy với tham số là id or tên của container đó
+
++ docker container prune => tương tự như trên lệnh prune có tác dụng xóa toàn bộ container đã được shutdown không còn được dùng nữa
+
++ docker container exec <container_id> <command> => dùng để chạy 1 câu lệnh bên trong container bất kỳ.
+
+!! Short-hand:
++ docker run
++ docker stop
++ docker exec
+
+# Slide xem hình: https://drive.google.com/file/d/1LXxsBCmt2EpbuAStiVsOeHfYzl0jy4BeF/view?usp=sharing
